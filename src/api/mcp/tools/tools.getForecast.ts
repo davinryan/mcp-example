@@ -1,5 +1,5 @@
 // Helper function for making NWS API requests
-import { AlertFeature, ForecastPeriod, ForecastResponse, PointsResponse } from '../http.types';
+import { AlertFeature, ForecastPeriod, ForecastResponse, PointsResponse } from '../http/http.types';
 import * as z from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeNWSRequest } from './tools.weatherService';

@@ -1,7 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { registerGetForecastTool } from '../http/tools/tools.getForecast';
-import { registerGetAlertsTool } from '../http/tools/tools.getAlerts';
+import { registerGetForecastTool } from '../tools/tools.getForecast';
+import { registerGetAlertsTool } from '../tools/tools.getAlerts';
 
 const createStdioServer = async () => {
     const server = new McpServer({

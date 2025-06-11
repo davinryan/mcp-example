@@ -2,8 +2,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import express from 'express';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
-import { registerGetAlertsTool } from './tools/tools.getAlerts';
-import { registerGetForecastTool } from './tools/tools.getForecast';
+import { registerGetAlertsTool } from '../tools/tools.getAlerts';
+import { registerGetForecastTool } from '../tools/tools.getForecast';
 
 const createHttpServer = () => {
     const server = new McpServer({

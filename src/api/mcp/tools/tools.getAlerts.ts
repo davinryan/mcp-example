@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { AlertFeature, AlertsResponse } from '../http.types';
+import { AlertFeature, AlertsResponse } from '../http/http.types';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeNWSRequest } from './tools.weatherService';
 
