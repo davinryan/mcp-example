@@ -55,7 +55,7 @@ const createHttpServer = () => {
     });
 
     app.listen(3000);
-    console.log('MCP server started and listening on port 3000');
+    console.warn('MCP server started and listening on port 3000');
 };
 
 export {

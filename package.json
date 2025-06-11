@@ -9,11 +9,13 @@
     "scripts": {
         "prepare": "husky",
         "pre-commit": "lint-staged",
-        "build:api": "vite build --ssr src/api/mcp.entry.ts --outDir dist/api",
-        "build": "npm run build:api",
-        "dev:api": "DOTENV_CONFIG_PATH=.env.local npx vite-node -w src/api/mcp.entry.ts",
+        "build:client": "vite build --ssr src/client/client.entry.ts --outDir dist/client",
+        "build:api": "vite build --ssr src/api/api.entry.ts --outDir dist/api",
+        "build": "npm run build:api && npm run build:client",
+        "dev:client": "DOTENV_CONFIG_PATH=.env.local npx vite-node -w src/client/client.entry.ts dist/api/api.entry.js",
+        "dev:api": "DOTENV_CONFIG_PATH=.env.local npx vite-node -w src/api/api.entry.ts",
         "dev:api:inspector": "DOTENV_CONFIG_PATH=.env.local npx @modelcontextprotocol/inspector",
-        "start": "DOTENV_CONFIG_PATH=.env.production node dist/api/mcp.entry.js",
+        "start": "DOTENV_CONFIG_PATH=.env.local node -r dotenv/config dist/client/client.entry.js dist/api/api.entry.js ",
         "test:unit": "cross-env NODE_ENV=test vitest --reporter=basic",
         "test:unit:coverage": "cross-env NODE_ENV=test vitest run --coverage",
         "docker:dev": "docker compose -f docker-compose.yaml",
@@ -34,6 +36,7 @@
         ]
     },
     "dependencies": {
+        "@anthropic-ai/sdk": "^0.53.0",
         "@faker-js/faker": "^8.4.1",
         "@modelcontextprotocol/inspector": "^0.14.0",
         "@modelcontextprotocol/sdk": "^1.12.1",
