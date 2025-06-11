@@ -1,8 +1,9 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { registerWeatherTools } from './tools/tools';
 import express from 'express';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
+import { registerGetAlertsTool } from './tools/tools.getAlerts';
+import { registerGetForecastTool } from './tools/tools.getForecast';
 
 const createHttpServer = () => {
     const server = new McpServer({
@@ -11,7 +12,8 @@ const createHttpServer = () => {
     });
 
     // ... set up server resources, tools, and prompts ...
-    registerWeatherTools(server);
+    registerGetAlertsTool(server);
+    registerGetForecastTool(server);
 
     // Setup server
     const app = express();

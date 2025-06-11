@@ -1,60 +1,12 @@
+// Helper function for making NWS API requests
+import { AlertFeature, ForecastPeriod, ForecastResponse, PointsResponse } from '../http.types';
+import * as z from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import * as z from 'zod'
-import { makeNWSRequest } from './tools.nwsRequest';
-import { AlertsResponse, ForecastPeriod, ForecastResponse, PointsResponse } from '../http.types';
-import { formatAlert } from './tools.otherRequest';
+import { makeNWSRequest } from './tools.weatherService';
 
 const NWS_API_BASE = 'https://api.weather.gov';
 
-const registerWeatherTools = (server: McpServer) => {
-    server.tool(
-        'get-alerts',
-        'Get weather alerts for a state',
-        {
-            state: z.string().length(2).describe('Two-letter state code (e.g. CA, NY)')
-        },
-        async ({ state }) => {
-            const stateCode = state.toUpperCase();
-            const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
-            const alertsData = await makeNWSRequest<AlertsResponse>(alertsUrl);
-
-            if (!alertsData) {
-                return {
-                    content: [
-                        {
-                            type: 'text',
-                            text: 'Failed to retrieve alerts data'
-                        }
-                    ]
-                };
-            }
-
-            const features = alertsData.features || [];
-            if (features.length === 0) {
-                return {
-                    content: [
-                        {
-                            type: 'text',
-                            text: `No active alerts for ${stateCode}`
-                        }
-                    ]
-                };
-            }
-
-            const formattedAlerts = features.map(formatAlert);
-            const alertsText = `Active alerts for ${stateCode}:\n\n${formattedAlerts.join('\n')}`;
-
-            return {
-                content: [
-                    {
-                        type: 'text',
-                        text: alertsText
-                    }
-                ]
-            };
-        }
-    );
-
+const registerGetForecastTool = (server: McpServer) => {
     server.tool(
         'get-forecast',
         'Get weather forecast for a location',
@@ -143,6 +95,7 @@ const registerWeatherTools = (server: McpServer) => {
         }
     );
 }
+
 export {
-    registerWeatherTools
+    registerGetForecastTool,
 }

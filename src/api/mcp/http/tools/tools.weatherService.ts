@@ -17,6 +17,7 @@ const makeNWSRequest = async <T>(url: string): Promise<T | null> => {
         return null;
     }
 };
+
 export {
     makeNWSRequest
-};
+}
