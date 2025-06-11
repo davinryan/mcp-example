@@ -1,0 +1,38 @@
+services:
+  # Main application
+  mcp-example:
+    command: sleep infinity
+    build: 
+      context: .
+      target: base  # Build to the base stage for development
+      dockerfile: Dockerfile
+    image: mcp-example:dev  # Name the image for development
+    # command: [] #npm run dev -- --port 3000  # Run dev server directly instead of using the entrypoint.sh
+    working_dir: /app
+    ports:
+      - 3000:3000  # MCP Server
+      - 6274:6274  # MCP Server Inspector client
+      - 6277:6277  # MCP Server Inspector server
+    volumes:
+      - .:/app:cached
+      - ~/.npmrc:/root/.npmrc:delegated  # Share NPM credentials (optional)
+      - ~/.gitconfig:/root/.gitconfig:delegated # Optional, share gitconfig with the container
+      - ~/.ssh/:/root/.ssh/:delegated # Options, allow SSH to work in your container
+    environment:
+      - NODE_ENV=development  # Set node environment
+      - NODE_PATH=/app/node_modules
+      - DATABASE_URL=postgres://mcp-example-user:password12345@mcp-example-db:5432/mcp-example  # Database URL
+      - DOTENV_CONFIG_PATH=.env.local  # Load your local env file
+    depends_on:
+      - mcp-example-db
+
+  # Database service
+  mcp-example-db:
+    image: postgres:latest
+    ports:
+      - 6036:5432  # Optional, expose if you need external access, for example to connect with dbvisualiser or pgadmin
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password12345
+      - POSTGRES_USER=mcp-example-user
+      - POSTGRES_DB=mcp-example
