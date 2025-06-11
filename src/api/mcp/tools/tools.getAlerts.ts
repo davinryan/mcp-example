@@ -1,7 +1,7 @@
 import * as z from 'zod';
-import { AlertFeature, AlertsResponse } from '../http/http.types';
+import { AlertFeature, AlertsResponse } from './tools.types';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { makeNWSRequest } from './tools.weatherService';
+import { makeNWSRequest } from './tools.service';
 
 const NWS_API_BASE = 'https://api.weather.gov';
 
