@@ -63,13 +63,6 @@ export class MCPClient {
             },
         ];
 
-        // const messages: MessageParam[] = [
-        //     {
-        //         role: "user",
-        //         content: "hello, Claude!",
-        //     },
-        // ];
-
         let response = undefined;
         try {
             response = await this.anthropic.messages.create({
