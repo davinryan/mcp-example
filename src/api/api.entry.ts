@@ -1,5 +1,5 @@
 // Start receiving messages on stdin and sending messages on stdout
-// import { createHttpServer } from './mcp/http/http.server';
+// import { createSSEServer } from './mcp/sse/sse.server';
 import { createStdioServer } from './mcp/stdio/stdio.server';
 
 const main = async () => {
@@ -8,7 +8,7 @@ const main = async () => {
         // Clean shutdown logic here
         process.exit(0);
     });
-    // createHttpServer();
+    // createSSEServer();
     await createStdioServer()
 };
 

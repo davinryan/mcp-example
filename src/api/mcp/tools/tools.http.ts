@@ -1,6 +1,6 @@
 const USER_AGENT = 'weather-app/1.0';
 
-const makeNWSRequest = async <T>(url: string): Promise<T | null> => {
+const makeHTTPRequest = async <T>(url: string): Promise<T | null> => {
     const headers = {
         'User-Agent': USER_AGENT,
         Accept: 'application/geo+json'
@@ -19,5 +19,5 @@ const makeNWSRequest = async <T>(url: string): Promise<T | null> => {
 };
 
 export {
-    makeNWSRequest
+    makeHTTPRequest
 }

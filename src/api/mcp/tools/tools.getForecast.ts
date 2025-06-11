@@ -2,7 +2,7 @@
 import { AlertFeature, ForecastPeriod, ForecastResponse, PointsResponse } from './tools.types';
 import * as z from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { makeNWSRequest } from './tools.service';
+import { makeHTTPRequest } from './tools.http';
 
 const NWS_API_BASE = 'https://api.weather.gov';
 
@@ -21,7 +21,7 @@ const registerGetForecastTool = (server: McpServer) => {
         async ({ latitude, longitude }) => {
             // Get grid point data
             const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(4)},${longitude.toFixed(4)}`;
-            const pointsData = await makeNWSRequest<PointsResponse>(pointsUrl);
+            const pointsData = await makeHTTPRequest<PointsResponse>(pointsUrl);
 
             if (!pointsData) {
                 return {
@@ -47,7 +47,7 @@ const registerGetForecastTool = (server: McpServer) => {
             }
 
             // Get forecast data
-            const forecastData = await makeNWSRequest<ForecastResponse>(forecastUrl);
+            const forecastData = await makeHTTPRequest<ForecastResponse>(forecastUrl);
             if (!forecastData) {
                 return {
                     content: [

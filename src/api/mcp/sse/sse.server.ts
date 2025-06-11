@@ -5,7 +5,7 @@ import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { registerGetAlertsTool } from '../tools/tools.getAlerts';
 import { registerGetForecastTool } from '../tools/tools.getForecast';
 
-const createHttpServer = () => {
+const createSSEServer = () => {
     const server = new McpServer({
         name: 'My App',
         version: '1.0.0'
@@ -61,5 +61,5 @@ const createHttpServer = () => {
 };
 
 export {
-    createHttpServer
+    createSSEServer
 };

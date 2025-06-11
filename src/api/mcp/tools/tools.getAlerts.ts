@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import { AlertFeature, AlertsResponse } from './tools.types';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { makeNWSRequest } from './tools.service';
+import { makeHTTPRequest } from './tools.http';
 
 const NWS_API_BASE = 'https://api.weather.gov';
 
@@ -27,7 +27,7 @@ const registerGetAlertsTool = (server: McpServer) => {
         async ({ state }) => {
             const stateCode = state.toUpperCase();
             const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
-            const alertsData = await makeNWSRequest<AlertsResponse>(alertsUrl);
+            const alertsData = await makeHTTPRequest<AlertsResponse>(alertsUrl);
 
             if (!alertsData) {
                 return {
